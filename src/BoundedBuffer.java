@@ -24,7 +24,6 @@ public class BoundedBuffer implements Queue<Packet> {
             semaphore.release();
             return true;
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -39,7 +38,6 @@ public class BoundedBuffer implements Queue<Packet> {
             semaphore.release();
             return true;
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }
@@ -56,7 +54,6 @@ public class BoundedBuffer implements Queue<Packet> {
             semaphore.release();
             return out;
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -73,7 +70,6 @@ public class BoundedBuffer implements Queue<Packet> {
             semaphore.release();
             return out;
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -90,7 +86,6 @@ public class BoundedBuffer implements Queue<Packet> {
             semaphore.release();
             return out;
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -107,7 +102,6 @@ public class BoundedBuffer implements Queue<Packet> {
             semaphore.release();
             return out;
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }

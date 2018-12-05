@@ -24,9 +24,7 @@ public class Packet implements Comparable<Packet> {
             newID.acquire();
             PID = nextPID++;
             newID.release();
-        } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
-        }
+        } catch (InterruptedException e) {}
         state = ThreadIs.CREATED;
         creationTime = Main.factory.now();
         this.serviceTime = serviceTime;
@@ -35,9 +33,7 @@ public class Packet implements Comparable<Packet> {
     public void acquire() {
         try {
             owner.acquire();
-        } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
-        }
+        } catch (InterruptedException e) {}
     }
 
     public void release() {

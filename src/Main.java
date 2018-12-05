@@ -1,10 +1,36 @@
+import java.util.concurrent.Semaphore;
+
 public class Main {
     public static Factory factory;
 
+    public static Semaphore next = new Semaphore(1);
+
     public static void main(String[] args) {
-        factory = new Factory(1, 50, 80,
-                false, 5, 1, 1000);
-        factory.start();
+        System.out.println("Producers | Consumers | InterArrival | Service | Queue | Packets | " +
+                "Discarded | Utilization | Throughput | Avg Service | Max Service | Avg Wait | Max Wait | " +
+                "Avg Turnaround | Max Turnaround | Avg Offer | Max Offer");
+        System.out.println("----------+-----------+--------------+---------+-------+---------+-" +
+                "----------+-------------+------------+-------------+-------------+----------+----------+-" +
+                "---------------+----------------+-----------+-----------");
+        for (int producers = 1; producers < 3; producers++) {
+            int interArrivalTime = producers == 1 ? 50 : 120;
+            for (int consumers = 1; consumers < 3; consumers++) {
+                int serviceTime = consumers == 1 ? 50 : 120;
+                for (int queueLength = 3; queueLength <= 10; queueLength++) {
+                    try {
+                        next.acquire();
+                        System.out.printf("%-9d   %-9d   %-12d   %-7d   %-5d   5000    | ",
+                                producers, consumers, interArrivalTime, serviceTime, queueLength);
+                        factory = new Factory(producers, consumers, interArrivalTime,
+                                serviceTime, true, queueLength, 5000);
+                        factory.start();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public static final String HEADER =
